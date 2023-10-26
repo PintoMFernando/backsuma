@@ -28,6 +28,15 @@ export class CentralizadormesController {
       update(@Param('idcentralizadormes') idcentralizadormes: string, @Body() updateEmpresaDto: UpdateCentralizadorMesDto) {
       return this.centralizadormesService.update(idcentralizadormes, updateEmpresaDto);
      }
+
+     
+
+
+  
+   
+
+   
+
   
   
 

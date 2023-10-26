@@ -79,20 +79,5 @@ export class UpdateEmpresaDto {
     @IsOptional()
     obs?:string;
 
-    @IsNumber()
-    @IsOptional()
-    balance?:number;
-
-    @IsNumber()
-    @IsOptional()
-    total?:number;
-
-    @IsNumber()
-    @IsOptional()
-    trabajo?:number;
-
-    @IsBoolean()
-    @IsOptional()
-    planillas?:boolean;
 
 }

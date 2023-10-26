@@ -9,7 +9,16 @@ import { CentralizadormesModule } from './centralizadormes/centralizadormes/cent
 import { CobroModule } from './cobro/cobro.module';
 import { ObservacionesModule } from './observaciones/observaciones.module';
 import { UserModule } from './user/cruge_user.module';
+import { PuntoventaModule } from './puntoventa/puntoventa.module';
 
+import { VenatatalonarioModule } from './ventatalonario/venatatalonario.module';
+
+import { SumatalonarioModule } from './sumatalonario/sumatalonario.module';
+import { EmpresadatosinicialesModule } from './empresadatosiniciales/empresadatosiniciales.module';
+import { ArchivostalonarioelectronicoModule } from './archivostalonarioelectronico/archivostalonarioelectronico.module';
+import { ComprassumasModule } from './comprassumas/comprassumas.module';
+
+import { ComprassumasdetalleModule } from './comprassumasdetalle/comprassumasdetalle.module';
 
 
 @Module({
@@ -19,6 +28,14 @@ import { UserModule } from './user/cruge_user.module';
             CobroModule,
             ObservacionesModule,
             UserModule,
+            PuntoventaModule,
+            VenatatalonarioModule,
+            SumatalonarioModule,
+            EmpresadatosinicialesModule,
+            ArchivostalonarioelectronicoModule,
+            ComprassumasModule,
+            ComprassumasdetalleModule,
+
          
     
       TypeOrmModule.forRoot({

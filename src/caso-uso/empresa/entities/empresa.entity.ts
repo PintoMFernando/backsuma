@@ -1,6 +1,6 @@
-import { Serializable } from 'child_process';
+
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
-import { Centralizador } from 'src/centralizador/entities/centralizador.entity';
+
 ///date UTC
 @Entity("empresa")
 export class Empresa {
@@ -43,14 +43,8 @@ export class Empresa {
     estado:number 
     @Column({nullable:true,length:200})
     obs: string
-    @Column({default:0, nullable: true})
-    balance:number
-    @Column({default:0, nullable: true})
-    total:number
-    @Column({default:0, nullable: true})
-    trabajo:number
-    @Column({default:false, nullable: true})
-    planillas:boolean
+    
+   
 
    /* @JoinColumn()
     @OneToMany(() => Centralizador, (dato) => dato.empresa)

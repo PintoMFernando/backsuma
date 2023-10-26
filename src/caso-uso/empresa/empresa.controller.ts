@@ -23,14 +23,7 @@ export class EmpresaController {
 
 
 
-
-    @Patch('/:idempresa')
-    update(@Param('idempresa') idempresa: number, @Body() updateEmpresaDto: UpdateEmpresaDto) {
-    return this.empresaService.update(idempresa, updateEmpresaDto);
-   }
-
-   
-
+ 
 
   
 }

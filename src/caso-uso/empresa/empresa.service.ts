@@ -39,14 +39,20 @@ export class EmpresaService {
   return await this.empresaRepository.findOneBy({idempresa});
 
   }
+  
+ 
 
 
-  async update(idempresa:number,updateEmpresaDto: UpdateEmpresaDto): Promise<UpdateResult>{  //EL PROMISE ERA LA CLAVE PARA QUE DE TODO
+
+
+
+
+  //async update(idempresa:number,updateEmpresaDto: UpdateEmpresaDto): Promise<UpdateResult>{  //EL PROMISE ERA LA CLAVE PARA QUE DE TODO
     
     
-    return await this.empresaRepository.update(idempresa, updateEmpresaDto)
+   // return await this.empresaRepository.update(idempresa, updateEmpresaDto)
 
-  }
+  //}
 /*
   async create(data: any): Promise<EmpresaEntity> {
     const empresa = this.empresaRepository.create(data);

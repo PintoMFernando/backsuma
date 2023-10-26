@@ -1,24 +1,25 @@
 
 
+
 import { Ventatalonario } from "src/ventatalonario/entities/ventatalonario.entity";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne , UpdateDateColumn} from "typeorm";
 
 
-@Entity("sumatalonario")
-export class Sumatalonario {
+@Entity("archivoelectronicotalonario")
+export class Archivoelectronicotalonario {
 
     
-    @Column({primary:true, type:'uuid'})
-    idsumatalonario: string;
+    @Column({primary:true,type:'uuid'})
+    idarchivotalonarioelectronico: string;
      
-    @Column()
-    numfactura:number;
-  
-    @Column({default:0, type: 'numeric', precision: 18, scale: 3})
-    monto:number;
-    
-    @Column()
-    estado:number;
+   
+      
+    @Column({ type: 'varchar', length: 300, nullable: true })
+    archivo:string | null;
+
+    @Column({ nullable: true })
+    observacion:string | null;
+      
       
     @Column({type:'uuid'})
     idventatalonario:string;
@@ -38,6 +39,5 @@ export class Sumatalonario {
     @ManyToOne(() => Ventatalonario)
     @JoinColumn({ name: 'idventatalonario' }) 
     ventatalonario: Ventatalonario;
-
 
 }

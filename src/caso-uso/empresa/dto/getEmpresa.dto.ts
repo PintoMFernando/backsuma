@@ -40,13 +40,6 @@ export class GetEmpresaDto {
   trial: string
   @IsString()
   obs: string
-  @IsNumber()
-  balance:number
-  @IsNumber()
-  total:number
-  @IsNumber()
-  trabajo:number
-  @IsBoolean()
-  planillas:boolean
+ 
   
 }

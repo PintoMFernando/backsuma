@@ -15,8 +15,8 @@ export class SumatalonarioController {
     }
  
     @Post()
-     create( @Body() sumatalonarioDto: CreateSumaTalonarioDto) {
-         console.log("entra a post");
+     create( @Body() sumatalonarioDto: CreateSumaTalonarioDto[]) {
+         console.log("entra a postse sumas");
          return this.sumatalonarioService.create( sumatalonarioDto); 
      }
     

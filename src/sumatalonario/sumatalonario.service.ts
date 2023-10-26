@@ -14,7 +14,7 @@ export class SumatalonarioService {
         private readonly sumatalonarioRepository: Repository<Sumatalonario>
       ) {}
     
-      async create(createsumaatalonarioDto: CreateSumaTalonarioDto){
+      async create(createsumaatalonarioDto: CreateSumaTalonarioDto[]){
         return await this.sumatalonarioRepository.save(createsumaatalonarioDto);
       }
       
