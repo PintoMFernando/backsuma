@@ -10,8 +10,14 @@ import { Ventatalonario } from "src/ventatalonario/entities/ventatalonario.entit
 export class Mespuntoventasuma {
 
    
-    @Column({primary:true,type:'uuid'})  //va estar autogeneradaddddfffffdfsfsdfsdffdghfgh
+    @Column({primary:true,type:'uuid'})  //va estar autogeneradaddddfffffdfsfsdfsdffdghfghadasdasdas
     idmespuntoventasuma: string;
+    
+    @Column({type:'uuid'})
+    idcentralizadormes:string;
+
+    @Column({type: 'integer'})
+    idpuntoventa:number;
     
     
     @CreateDateColumn({ type: "timestamp" })
@@ -20,24 +26,21 @@ export class Mespuntoventasuma {
     @UpdateDateColumn({ type: "timestamp" })
     updated_at: Date;
 
-    @Column({type:'uuid'})
-    idcentralizadormes:string;
-
-    @Column()
-    idpuntoventa:number;
+   
 
     
-    @ManyToMany( () => Centralizadormes, (centralizadormes) => centralizadormes.puntoventas)
+    @ManyToOne( () => Centralizadormes, (centralizadormes) => centralizadormes.mespuntoventasumas)
     @JoinColumn({ name: 'idcentralizadormes' }) 
+    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idcentralizadormes' }, inverseJoinColumn: { name: 'idpuntoventa' } })
     centralizadormess: Centralizadormes[];
   
-    @ManyToMany( () => Puntoventa, (puntoventa) => puntoventa.centralizadormess)
+    @ManyToOne( () => Puntoventa, (puntoventa) => puntoventa.mespuntoventasumas)
     @JoinColumn({ name: 'idpuntoventa' }) 
-    puntoventas: Puntoventa[];
+    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })
+    puntoventa: Puntoventa[];
 
 
     @ManyToOne(() => Ventatalonario)
-    @JoinColumn({ name: 'idmespuntoventasuma' }) 
     ventatalonario: Ventatalonario;
 
    // @ManyToOne(() => Ventatalonario, (ventatalonario) => ventatalonario.mespuntoventasumas)

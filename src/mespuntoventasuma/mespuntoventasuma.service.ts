@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { DataSource, Repository, UpdateResult } from 'typeorm';
 import { Mespuntoventasuma } from './entities/mespuntoventasuma.entity';
 import { UpdateMespuntoventasumaDto } from './DTO/updateMespuntoventasuma.dto';
 import { CreateMespuntoventasumaDto } from './DTO/createMespuntoventasuma.dto';
+import { Puntoventa } from 'src/puntoventa/entities/puntoventa.entity';
+import { PuntoventaService } from 'src/puntoventa/puntoventa.service';
 
 
 @Injectable()
@@ -11,50 +13,58 @@ export class MespuntoventasumaService {
    
     constructor(
         @InjectRepository(Mespuntoventasuma)
-        private readonly comprassumasRepository: Repository<Mespuntoventasuma>
+        private  mespuntoventasumaRepository: Repository<Mespuntoventasuma>,
+        
       ) {}
     
   
      async create(createmespuntoventassumadto: CreateMespuntoventasumaDto[]) {
                // Llama al repositorio para guardar la entidad en la base de datosfhfghfghsadasdasASDASD
-       return await this.comprassumasRepository.save(createmespuntoventassumadto);
+       return await this.mespuntoventasumaRepository.save(createmespuntoventassumadto);
       }
 
       
+   
+  /*async findAll(idcentralizadormes:string, idempresa:number){
 
-      async find(idmespuntoventassuma:string){
-        console.log("entra la servicio");
-        return await this.comprassumasRepository.find({
-          where:{
-            idmespuntoventasuma: idmespuntoventassuma
-          },
-          relations: ['comprassumasdetalle'],
-        });
-        }
-
-        
-
-       
-  async findAllByIdcomprassumas(idcentralizadormes:string,idpuntoventa:number){
+    await this.puntoventaService.findOnepuntoventa(idempresa);
   
-  return await this.comprassumasRepository.find({
+  return await this.mespuntoventasumaRepository.find({
     where:{
       idcentralizadormes:idcentralizadormes,
-      idpuntoventa:idpuntoventa  
     },
-    relations:['centralizadormes','puntoventa']
+    
   });
+  }*/
+  async findAll(idcentralizadormes: string) {
+    try {
+      const resultados = await this.getsumaspuntoventa(idcentralizadormes);
+      return resultados;
+    } catch (error) {
+      throw new Error(`Error en el servicio: ${error.message}`);
+    }
   }
 
+  private async getsumaspuntoventa(idcentralizadormes: string) {
+    const mespuntosuma = await this.mespuntoventasumaRepository
+    .createQueryBuilder('mespuntoventasuma')
+    .leftJoinAndSelect('mespuntoventasuma.puntoventa', 'puntoventa')
+    .where("mespuntoventasuma.idcentralizadormes = :idcentralizadormes", { idcentralizadormes })
+    .getMany();  
+    return mespuntosuma;
+  }
+  
+
+
   async update(idmespuntoventassuma:string, updatemespuntoventasumaDto: UpdateMespuntoventasumaDto): Promise<UpdateResult>{  //EL PROMISE ERA LA CLAVE PARA QUE DE TODOO
-    return await this.comprassumasRepository.update(idmespuntoventassuma, updatemespuntoventasumaDto)
+    return await this.mespuntoventasumaRepository.update(idmespuntoventassuma, updatemespuntoventasumaDto)
 
   }
   
  
 
   async remove(idmespuntoventassuma:string){
-    return await this.comprassumasRepository.softDelete(idmespuntoventassuma);
+    return await this.mespuntoventasumaRepository.softDelete(idmespuntoventassuma);
   }
 
 }

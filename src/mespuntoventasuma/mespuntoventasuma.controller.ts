@@ -10,11 +10,11 @@ export class MespuntoventasumaController {
 
     constructor(private readonly mespuntoventasumaService: MespuntoventasumaService){}
 
-     @Get('comprassumas/:idcomprasuma')
+     @Get('/:idcentralizadormes')
      
-     find(@Param('idcomprasuma') idcomprasuma: string) {
+     findAll(@Param('idcentralizadormes') idcentralizadormes: string) {
          console.log("entra la controlador");
-        return   this.mespuntoventasumaService.find(idcomprasuma);
+        return   this.mespuntoventasumaService.findAll(idcentralizadormes);
      }
   
      @Post()
