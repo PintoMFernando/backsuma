@@ -14,13 +14,15 @@ export class Puntoventaactividad {
     @Column({primary:true,type:'uuid'})  //va estar autogeneradaddddfffffdfsfsdfsdfffdgdfgdasdasdassdasd
     idpuntoventaactividad: string;
     
-    @Column({type:'uuid'})
-    idactividades:string;
+    @Column()
+    idactividades:number;
 
     @Column({type: 'integer'})
     idpuntoventa:number;
     
-    
+    @Column({default:'true'})
+    estado:boolean;
+
     @CreateDateColumn({ type: "timestamp" })
     created_at: Date;
 
@@ -32,13 +34,11 @@ export class Puntoventaactividad {
     
     @ManyToOne( () => Actividades, (actividades) => actividades.puntoventaactividads)
     @JoinColumn({ name: 'idactividades' }) 
-    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idcentralizadormes' }, inverseJoinColumn: { name: 'idpuntoventa' } })
     actividadess: Actividades[];
 
     @ManyToOne( () => Puntoventa, (puntoventa) => puntoventa.puntoventaactividads)
     @JoinColumn({ name: 'idpuntoventa' }) 
-    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })
-    puntoventas: Puntoventa[];
+    puntoventa: Puntoventa[];
 
 
 
@@ -52,14 +52,6 @@ export class Puntoventaactividad {
 
 
   
-   // @ManyToOne( () => Puntoventa, (puntoventa) => puntoventa.mespuntoventasumas)  //esto borrar
-    //@JoinColumn({ name: 'idpuntoventa' }) 
-    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })
-    //puntoventa: Puntoventa[];
-
-
-    //@ManyToOne(() => Ventatalonario)
-    //ventatalonario: Ventatalonario;
 
 
 }

@@ -1,5 +1,5 @@
 
-import {  IsNumber, IsString } from 'class-validator';
+import {  IsBoolean, IsNumber, IsString } from 'class-validator';
 
 
 
@@ -7,10 +7,14 @@ export class CreatePuntoventaactividadDto {
   
     @IsString()  
     idpuntoventaactividad: string;
-    @IsString()  
-    idactividades: string;
-    @IsString()  
+    @IsNumber()  
+    idactividades: number;
+    @IsNumber()  
     idpuntoventa: number;
+
+    @IsBoolean()  
+    
+    estado: boolean;
     
  
    

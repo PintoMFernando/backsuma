@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 
 
@@ -7,10 +7,15 @@ export class UpdatePuntoventaactividadDto {
     @IsString()  
     @IsOptional()
     idpuntoventaactividad?: string;
-    @IsString()  
+    @IsNumber()  
     @IsOptional()
-    idactividades?: string;
-    @IsString()  
+    idactividades?: number;
+
+    @IsBoolean()  
+    @IsOptional()
+    estado?: boolean;
+
+    @IsNumber()  
     @IsOptional()
     idpuntoventa?: number;
     
