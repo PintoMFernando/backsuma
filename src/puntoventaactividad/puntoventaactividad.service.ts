@@ -37,29 +37,38 @@ export class PuntoventaactividadService {
   private async getsumaspuntoventa(idempresa: number) {
     const mespuntosuma = await this.puntoventaactividadRepository
     .createQueryBuilder('puntoventaactividad')
-    .leftJoinAndSelect('puntoventaactividad.puntoventa', 'puntoventa')
-    .leftJoinAndSelect('puntoventaactividad.actividadess','actividadess')
+    .innerJoin('puntoventaactividad.puntoventa', 'puntoventa')
     .where("puntoventa.idempresa = :idempresa", {idempresa})
-    .groupBy("puntoventa.idpuntoventa")
-   // .groupBy("puntoventa.idpuntoventa")
+   // .groupBy("puntoventa.idpuntoventa") 
+   
     .select([
-        'puntoventa.idpuntoventa',
-        'puntoventa.direccion_suc',
-        'puntoventa.num_sucursall',
-        'puntoventa.nombre',
-        'puntoventa.idempresa',
-       // 'puntoventaactividad.idpuntoventaactividad',
-        'json_agg(actividadess) AS actividades_idactividades',
-       // '(SELECT array_agg(idpuntoventaactividad) FROM puntoventaactividad WHERE puntoventa.idpuntoventa = puntoventaactividad.idpuntoventa) AS idpuntoventaactividad'
-    ])
+        'puntoventa.idpuntoventa as idpuntoventa',
+      'puntoventaactividad.idpuntoventaactividad as puntoventaactividad_idpuntoventaactividad',
+    
+        ])
+        
     .getRawMany();
-
-return mespuntosuma;
-
-  
+    
+    const resultadosAgrupados: any[] = [];
+    mespuntosuma.forEach((resultado) => {
+    const puntoventaId = resultado.idpuntoventa;
+    const grupoExistente = resultadosAgrupados.find(item => item.idpuntoventa === puntoventaId);
+    if (!grupoExistente) {
+      resultadosAgrupados.push({
+        idpuntoventa: puntoventaId,
+        data: [
+          { idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad }
+        ]
+      });
+    } else {
+     
+      grupoExistente.data.push({ idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad });
+    }
+  });
+  return resultadosAgrupados;
+ 
   }
-//.innerJoin('puntoventaactividad.puntoventa','puntoventa')
-    //.innerJoin('puntoventaactividad.actividadess','actividadess')
+
   async findAllbusqueda(idactividades:number,idpuntoventa:number){
   
     return await this.puntoventaactividadRepository.find({
