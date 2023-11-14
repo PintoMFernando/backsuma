@@ -16,27 +16,35 @@ export class ComprassumasService {
     
   
       async create(createcomprassumasDto: CreateComprassumasDto[]) {
-       
-     
-        // Llama al repositorio para guardar la entidad en la base de datosfhfghfghsadasdasASDASD
+               // Llama al repositorio para guardar la entidad en la base de datosfhfghfghsadasdasASDASD
         return await this.comprassumasRepository.save(createcomprassumasDto);
       }
 
-      async findAll(idventatalonario:string){
-        return await this.comprassumasRepository.find();
-      }
-    
+      
+
+      async find(idcomprasuma:string){
+        console.log("entra la servicio");
+        return await this.comprassumasRepository.find({
+          where:{
+            idcomprasuma: idcomprasuma
+          },
+          relations: ['comprassumasdetalle'],
+        });
+        }
+
+        
+
        
-  async findAllByIdcomprassumas(idpuntoventa:number){
+  /*async findAllByIdcomprassumas(idcentralizadormes:string){
   
   return await this.comprassumasRepository.find({
     where:{
-      'puntoventa':{idpuntoventa:idpuntoventa},  
+      'centralizadormes':{idcentralizadormes:idcentralizadormes},  
     },
-    relations:['puntoventa']
+    relations:['centralizadormes']
   });
   }
-
+*/
   async update(idcomprassumas:string, comprassumasDto: UpdateComprassumasDto): Promise<UpdateResult>{  //EL PROMISE ERA LA CLAVE PARA QUE DE TODOO
     return await this.comprassumasRepository.update(idcomprassumas, comprassumasDto)
 
@@ -45,7 +53,7 @@ export class ComprassumasService {
  
 
   async remove(idcomprasuma:string){
-    return await this.comprassumasRepository.softDelete({idcomprasuma});
+    return await this.comprassumasRepository.delete({idcomprasuma});
   }
 
 

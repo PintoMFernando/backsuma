@@ -22,11 +22,16 @@ export class CreateVentaTalonarioDto {
     
   @IsNumber()
   montototal:number;
+
+  @IsString()  
+  idpuntoventaactividad:string;
+
+  @IsString()  
+  idcentralizadormes?: string;
     
 
 
-  @IsNumber()
-  idpuntoventa:number;
+  
    
   
 }

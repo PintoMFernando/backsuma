@@ -13,6 +13,11 @@ export class ComprassumasdetalleController {
     findAllByIdventatalonario(@Param('idcomprassumas') idcomprassumas: string) {
        return   this.comprassumasdetalleService.findAllByIdcomprassumasdetalle(idcomprassumas);
     }
+
+    @Get('solodetalles/:idcomprassumas')
+    findAll(@Param('idcomprassumas') idcomprassumas: string) {
+       return   this.comprassumasdetalleService.findAll(idcomprassumas);
+    }
  
     @Post()
      create( @Body() comprasssumasdetalleDto: CreateComprassumasdetalleDto[]) {
@@ -28,10 +33,17 @@ export class ComprassumasdetalleController {
  
  
       @Delete('/:idcomprassumasdetalle')
+      delete(@Param('idcomprassumasdetalle') idcomprassumasdetalle: string){
+         console.log("aqui esta",idcomprassumasdetalle);
+         return this.comprassumasdetalleService.remove(idcomprassumasdetalle);
+      }  
+
+      /*@Delete('/:idcomprassumasdetalle')
       remove(@Param('idcomprassumasdetalle') idcomprassumasdetalle: string){
          console.log("aqui esta",idcomprassumasdetalle);
          return this.comprassumasdetalleService.remove(idcomprassumasdetalle);
       }  
+ */
  
 
 

@@ -16,9 +16,9 @@ export class EmpresadatosinicialesController {
     }
    
    
-    @Get('/:idempresa')
-    findAllByIdempresadatosini(@Param('idempresa') idempresa: number) {
-       return   this.empresadatosinicialesService.findAllByIdempresadatosini(idempresa);
+    @Get('/:idcentralizador')
+    findAllByIdempresadatosini(@Param('idcentralizador') idcentralizador: string) {
+       return   this.empresadatosinicialesService.findAllByIdempresadatosini(idcentralizador);
     }
 
     

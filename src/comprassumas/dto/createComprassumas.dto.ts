@@ -14,8 +14,19 @@ export class CreateComprassumasDto {
     tipo:number;
     
     @IsNumber()
-    total:number;
+    total100:number;
+
+    @IsNumber()
+    totaldescuento100:number;
     
+    @IsNumber()
+    totalcompra100:number;
+    
+    @IsNumber()
+    totalgasolina:number;
+    
+    @IsNumber()
+    totalgasolinadesceunto:number;
     
     @IsNumber()
     totalice:number;
@@ -24,15 +35,14 @@ export class CreateComprassumasDto {
     totalicecredito:number;
 
     @IsNumber()    
-    totaldescuento:number;
+    totaldescuentoicecredito:number;
     
     @IsNumber()    
-    totalcompras:number;
-
+    totaltodoicecredito:number;
    
     
 
-    @IsNumber()
-    idpuntoventa:number;
+    @IsString()
+    idcentralizadormes:string;
    
 }

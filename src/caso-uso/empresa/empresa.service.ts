@@ -21,8 +21,7 @@ export class EmpresaService {
   /*async findOne(idempresa:number): Promise<Empresa> {
     const fecha = new Date();
     const anioactual = fecha.getFullYear();
-
-    
+  
   return await this.empresaRepository
   .createQueryBuilder('empresa')
   .innerJoin(

@@ -16,12 +16,12 @@ export class CentralizadorController {
       
     }
    
-    @Get('tablacentralizador/:idcentralizador')
+   /* @Get('tablacentralizador/:idcentralizador')                                    //este es el controlador
     findAll(@Param('idcentralizador') idcentralizador: string) {
       
       return   this.centralizadorService.findAllByIdEmpresa(idcentralizador);
     }
-
+/*
 
 
    /* @Get('tablacentralizadorbuscar/:id_dato/:anio')   intento de man dar un boolena

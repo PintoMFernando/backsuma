@@ -4,6 +4,7 @@ import { Comprassumasdetalle } from './entities/comprassumasdetalle.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateComprassumasdetalleDto } from './dto/createComprassumasdetalle.dto';
 import { UpdateComprassumasdetalleDto } from './dto/updateComprassumasdetalle.dto';
+import { Comprassumas } from 'src/comprassumas/entities/comprassumas.entity';
 
 @Injectable()
 export class ComprassumasdetalleService {
@@ -11,7 +12,11 @@ export class ComprassumasdetalleService {
     constructor(
         @InjectRepository(Comprassumasdetalle)
         private readonly comprassumasdetalleRepository: Repository<Comprassumasdetalle>
-      ) {}
+        
+       
+     
+     
+        ) {}
     
   
       async create(createcomprassumasdetalleDto: CreateComprassumasdetalleDto[]) {
@@ -33,6 +38,14 @@ export class ComprassumasdetalleService {
   });
   }
 
+  async findAll(idcomprasuma:string){
+  
+    return await this.comprassumasdetalleRepository.find({
+        where: { idcomprasuma: idcomprasuma }
+    });
+    }
+
+
   async update(idcomprassumasdetalle:string, comprassumasdetalleDto: UpdateComprassumasdetalleDto): Promise<UpdateResult>{  //EL PROMISE ERA LA CLAVE PARA QUE DE TODOO
     return await this.comprassumasdetalleRepository.update(idcomprassumasdetalle, comprassumasdetalleDto)
 
@@ -40,9 +53,10 @@ export class ComprassumasdetalleService {
   
  
 
-  async remove(idcomprasumadetalle:string){
-    return await this.comprassumasdetalleRepository.softDelete({idcomprasumadetalle});
+ async remove(idcomprasuma:string){
+    return await this.comprassumasdetalleRepository.delete({idcomprasuma:idcomprasuma}); //elimina todos los datos, cambiamos softdelete por delete
   }
+
 
 
 }

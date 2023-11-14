@@ -4,6 +4,7 @@ import { Puntoventa } from "src/puntoventa/entities/puntoventa.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne , OneToMany, OneToOne, UpdateDateColumn} from "typeorm";
 import { Centralizadormes } from "../../centralizadormes/entities/centralizadormes.entity";
 import { Ventatalonario } from "src/ventatalonario/entities/ventatalonario.entity";
+import { Puntoventaactividad } from "src/puntoventaactividad/entities/puntoventaactividad.entity";
 
 
 @Entity("mespuntoventasuma")
@@ -16,8 +17,8 @@ export class Mespuntoventasuma {
     @Column({type:'uuid'})
     idcentralizadormes:string;
 
-    @Column({type: 'integer'})
-    idpuntoventa:number;
+    @Column({type: 'uuid'})
+    idpuntoventaactividad:string;
     
     
     @CreateDateColumn({ type: "timestamp" })
@@ -29,15 +30,22 @@ export class Mespuntoventasuma {
    
 
     
-    @ManyToOne( () => Centralizadormes, (centralizadormes) => centralizadormes.mespuntoventasumas)
-    @JoinColumn({ name: 'idcentralizadormes' }) 
+   // @ManyToOne( () => Centralizadormes, (centralizadormes) => centralizadormes.mespuntoventasumas)
+    //@JoinColumn({ name: 'idcentralizadormes' }) 
     //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idcentralizadormes' }, inverseJoinColumn: { name: 'idpuntoventa' } })
-    centralizadormess: Centralizadormes[];
+    //centralizadormess: Centralizadormes[];
   
-    @ManyToOne( () => Puntoventa, (puntoventa) => puntoventa.mespuntoventasumas)
+    /*@ManyToOne( () => Puntoventa, (puntoventa) => puntoventa.mespuntoventasumas)
     @JoinColumn({ name: 'idpuntoventa' }) 
-    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })
+    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })sdfds
     puntoventa: Puntoventa[];
+*/
+
+   //@ManyToOne( () => Puntoventaactividad, (puntoventaactividad) => puntoventaactividad.mespuntoventasumas)
+   // @JoinColumn({ name: 'idpuntoventaactividad' }) 
+    //@JoinTable({ name: 'mespuntoventasuma', joinColumn: { name: 'idpuntoventa' }, inverseJoinColumn: { name: 'idcentralizadormes' } })
+   // puntoventaactividad: Puntoventaactividad[];
+
 
 
     @ManyToOne(() => Ventatalonario)

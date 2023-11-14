@@ -12,6 +12,10 @@ export class UpdateComprassumasdetalleDto {
     @IsNumber()
     @IsOptional()
     monto?:number;
+
+    @IsNumber()
+    @IsOptional()
+    montogasolina?:number;
     
     
     @IsNumber()

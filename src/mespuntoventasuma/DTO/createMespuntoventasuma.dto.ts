@@ -11,8 +11,8 @@ export class CreateMespuntoventasumaDto {
   @IsString()
   idcentralizadormes: string;
 
-  @IsNumber()
-  idpuntoventa: number;
+  @IsString()
+  idpuntoventaactividad: string;
 
 
 }

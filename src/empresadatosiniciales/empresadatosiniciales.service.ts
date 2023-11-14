@@ -18,13 +18,13 @@ export class EmpresadatosinicialesService {
         return await this.empresadatosinicialesRepository.save(createdatoEmpresadatosinicialesDto);
       }
 
-      async findAllByIdempresadatosini(idempresa:number){
+      async findAllByIdempresadatosini(idcentralizador:string){
   
         return await this.empresadatosinicialesRepository.find({
           where:{
-            'empresa':{idempresa:idempresa},  
+            'centralizador':{idcentralizador:idcentralizador},  
           },
-          relations:['empresa']
+          relations:['centralizador']
         });
         }
 

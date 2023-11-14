@@ -2,7 +2,10 @@
 
 import { IsNotEmpty } from "class-validator";
 import { Empresa } from "src/caso-uso/empresa/entities/empresa.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Centralizadormes } from "src/centralizadormes/entities/centralizadormes.entity";
+import { Mespuntoventasuma } from "src/mespuntoventasuma/entities/mespuntoventasuma.entity";
+import { Puntoventaactividad } from "src/puntoventaactividad/entities/puntoventaactividad.entity";
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany } from "typeorm";
 
 
 @Entity("puntoventa")
@@ -20,15 +23,21 @@ export class Puntoventa {
     
     @Column({length:55})
     nombre:string;
-    
 
-    @IsNotEmpty()
-    @Column({ type: 'integer' }) 
-    idempresa: number;
+    @Column()
+    idempresa:number;
+
+
+
+    @OneToMany(() => Puntoventaactividad, (puntoventaactividad) => puntoventaactividad.puntoventa)
+    @JoinTable()
+    puntoventaactividads: Puntoventaactividad[];
+  
 
    
+    
     @ManyToOne(() => Empresa, (empresa) => empresa.idempresa)
-    @JoinColumn({ name: 'id_empresa'})
+    @JoinColumn({ name: 'idempresa'})
     empresa: Empresa;
 
 

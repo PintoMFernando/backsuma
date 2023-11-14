@@ -27,15 +27,22 @@ export class UpdateVentaTalonarioDto {
   @IsNumber()
   @IsOptional()
   montototal?:number;
+
+  @IsString()  
+    @IsOptional()
+  idpuntoventaactividad?:string;
+
+  @IsString()  
+    @IsOptional()
+    idcentralizadormes?: string;
     
   
 
 
 
-    
-  @IsNumber()
-  @IsOptional()
-  idpuntoventa?:number;
+  
+  
+   
    
  
 }

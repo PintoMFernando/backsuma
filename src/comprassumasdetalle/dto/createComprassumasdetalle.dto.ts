@@ -13,6 +13,9 @@ export class CreateComprassumasdetalleDto {
     
     @IsNumber()
     monto:number;
+
+    @IsNumber()
+    montogasolina:number;
     
     
     @IsNumber()

@@ -7,10 +7,12 @@ export class PuntoventaController {
     constructor(private readonly puntoventaService: PuntoventaService){}
     
 
-  @Get()
-  findAll() {
-    return this.puntoventaService.findAll();
-  }
+    @Get('/:idempresa')
+    findAll(@Param('idempresa') idempresa: number) {
+        console.log("entra la controlador");
+       return   this.puntoventaService.findAll(idempresa);
+    }
+  
     
   
    

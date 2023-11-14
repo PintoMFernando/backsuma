@@ -33,18 +33,53 @@ export class VenatatalonarioService {
     
       
     
-      async findAll(idventatalonario:string){
-        return await this.ventatalonarioRepository.find();
-      }
+     
+  async findAll(idcentralizadormes: string) {
+    try {
+      const resultados = await this.getventatalonario(idcentralizadormes);
+      return resultados;
+    } catch (error) {
+      throw new Error(`Error en el servicio: ${error.message}`);
+    }
+  }
+
+  private async getventatalonario(idcentralizadormes: string) { ///falta traerventas
+    const mesventas = await this.ventatalonarioRepository
+    .createQueryBuilder('ventalonario')
+    .innerJoin('centralizadormess.puntoventa', 'puntoventa')
+    
+    .where("puntoventa.idempresa = :idempresa", {idcentralizadormes})
+   // .groupBy("puntoventa.idpuntoventa") 
+   
+    .select([
+        'puntoventa.idpuntoventa as idpuntoventa',
+        'puntoventa.num_sucursall as num_sucursall',
+        'puntoventa.nombre as nombrepuntoventa',
+
+        'puntoventaactividad.idpuntoventaactividad as puntoventaactividad_idpuntoventaactividad',
+        'actividadess.idactividades as idactividades',
+        'actividadess.nombre as nombreactividades',
+        
+    
+        ])
+        
+    .getRawMany();
+    
+    
+  return mesventas;
+ 
+  }
+
     
        
-  async findAllByIdventatalonario(idpuntoventa:number){
+  async findAllByIdventatalonario(idmespuntoventasuma:string){
   
   return await this.ventatalonarioRepository.find({
     where:{
-      'puntoventa':{idpuntoventa:idpuntoventa},  
+    //  idmespuntoventasuma:idmespuntoventasuma,
+      
     },
-    relations:['puntoventa']
+    relations:['mespuntoventasuma']
   });
   }
 

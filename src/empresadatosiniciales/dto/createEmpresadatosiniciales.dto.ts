@@ -17,7 +17,7 @@ export class CreateEmpresadatosinicialesDto {
   @IsBoolean()
   planillas?:boolean;
   
-  @IsNumber()
-  id_empresa?: number;
+  @IsString()
+  idcentralizador?: string;
   
 }

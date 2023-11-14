@@ -12,8 +12,8 @@ export class UpdateMespuntoventasumaDto {
   @IsOptional()
   idcentralizadormes?: string;
 
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  idpuntoventa?: number;
+  idpuntoventaactividad?: string;
  
 }

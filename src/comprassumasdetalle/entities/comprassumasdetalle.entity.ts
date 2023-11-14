@@ -13,6 +13,8 @@ export class Comprassumasdetalle {
     
     @Column({default:0, type: 'numeric', precision: 18, scale: 3})
     monto:number;
+    @Column({default:0, type: 'numeric', precision: 18, scale: 3})
+    montogasolina:number;
     
     
     @Column({default:0, type: 'numeric', precision: 18, scale: 3})
@@ -42,8 +44,12 @@ export class Comprassumasdetalle {
     idcomprasuma:string;
    
     
-    @ManyToOne(() => Comprassumas)
+    //@ManyToOne(() => Comprassumas)
+    //@JoinColumn({ name: 'idcomprasuma' }) 
+    ///comprassumas: Comprassumas;
+    
+    @ManyToOne(()=> Comprassumas,(comprassumas)=> comprassumas.comprassumasdetalle,)
     @JoinColumn({ name: 'idcomprasuma' }) 
-    comprassumas: Comprassumas;
+    comprassumas: Comprassumas
 
 }

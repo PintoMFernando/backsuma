@@ -15,6 +15,8 @@ export class CreatePuntoventaactividadDto {
     @IsBoolean()  
     
     estado: boolean;
+
+  
     
  
    

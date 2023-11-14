@@ -48,7 +48,7 @@ export class MespuntoventasumaService {
   private async getsumaspuntoventa(idcentralizadormes: string) {
     const mespuntosuma = await this.mespuntoventasumaRepository
     .createQueryBuilder('mespuntoventasuma')
-    .leftJoinAndSelect('mespuntoventasuma.puntoventa', 'puntoventa')
+    .leftJoinAndSelect('mespuntoventasuma.puntoventaactividad', 'puntoventaactividad')
     .where("mespuntoventasuma.idcentralizadormes = :idcentralizadormes", { idcentralizadormes })
     .getMany();  
     return mespuntosuma;

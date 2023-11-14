@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { Centralizadormes } from './entities/centralizadormes.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCentralizadorMesDto } from './dto/createCentralizadorMes.dto';
-import { UpdateCentralizadorMesDto } from './dto/updateCentralizadorMes.dto';
+import { CreateCentralizadorMesDto } from './dto/createMespuntoventasuma.dto';
+import { UpdateCentralizadorMesDto } from './dto/updateMespuntoventasuma.dto';
 import { UpdateDatoEmpresaDto } from 'src/centralizador/dto/updateDatoEmpresa.dto';
 
 
@@ -51,6 +51,32 @@ export class CentralizadormesService {
   
     }
 
+    findMany(idcentralizadormes: string) {
+      console.log("entra al servicio");
+      return this.centralizadormesRepository.find({
+        where: {
+          idcentralizadormes: idcentralizadormes
+          
+        },
+        relations: ['comprassumas','comprassumas.comprassumasdetalle'],
+      });
+    }
+
+
+     find(idcentralizadormes:string){
+      console.log("entra al servicioooooooooooooooooooo");
+      return  this.centralizadormesRepository.find({
+        where:{
+            idcentralizadormes: idcentralizadormes
+          },
+          relations: ['otrossumas'],
+      });
+      }
+    
+    
+
+      
+    
 
 
   

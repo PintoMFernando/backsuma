@@ -38,12 +38,19 @@ export class PuntoventaactividadService {
     const mespuntosuma = await this.puntoventaactividadRepository
     .createQueryBuilder('puntoventaactividad')
     .innerJoin('puntoventaactividad.puntoventa', 'puntoventa')
+    .innerJoin('puntoventaactividad.actividadess', 'actividadess')
     .where("puntoventa.idempresa = :idempresa", {idempresa})
    // .groupBy("puntoventa.idpuntoventa") 
    
     .select([
         'puntoventa.idpuntoventa as idpuntoventa',
-      'puntoventaactividad.idpuntoventaactividad as puntoventaactividad_idpuntoventaactividad',
+        'puntoventa.num_sucursall as num_sucursall',
+        'puntoventa.nombre as nombrepuntoventa',
+
+        'puntoventaactividad.idpuntoventaactividad as puntoventaactividad_idpuntoventaactividad',
+        'actividadess.idactividades as idactividades',
+        'actividadess.nombre as nombreactividades',
+        
     
         ])
         
@@ -56,13 +63,21 @@ export class PuntoventaactividadService {
     if (!grupoExistente) {
       resultadosAgrupados.push({
         idpuntoventa: puntoventaId,
+        num_sucursall: resultado.num_sucursall,
+        nombrepuntoventa: resultado.nombrepuntoventa,
         data: [
-          { idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad }
+          { idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad,
+
+            idactividades: resultado.idactividades,
+            nombreactividades:  resultado.nombreactividades,
+
+        }
+         
         ]
       });
     } else {
      
-      grupoExistente.data.push({ idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad });
+      grupoExistente.data.push({ idpuntoventaactividad: resultado.puntoventaactividad_idpuntoventaactividad, idactividades: resultado.idactividades, nombreactividades:  resultado.nombreactividades} );
     }
   });
   return resultadosAgrupados;

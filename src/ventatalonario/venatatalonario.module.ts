@@ -4,9 +4,10 @@ import { VenatatalonarioService } from './venatatalonario.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { Ventatalonario } from './entities/ventatalonario.entity';
+import { Mespuntoventasuma } from 'src/mespuntoventasuma/entities/mespuntoventasuma.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Ventatalonario])],
+  imports:[TypeOrmModule.forFeature([Ventatalonario,Mespuntoventasuma])],
   controllers: [VenatatalonarioController],
   providers: [VenatatalonarioService]
 })

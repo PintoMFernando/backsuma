@@ -1,6 +1,7 @@
 
 import { IsNotEmpty } from 'class-validator';
 import { Empresa } from 'src/caso-uso/empresa/entities/empresa.entity';
+import { Centralizador } from 'src/centralizador/entities/centralizador.entity';
 import { Entity, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 
 ///date UTC
@@ -25,8 +26,8 @@ export class Empresadatosiniciales {
     planillas:boolean
   
     @IsNotEmpty()
-    @Column({ type: 'integer' }) 
-    id_empresa: number;
+    @Column({ type: 'uuid' }) 
+    idcentralizador: string;
 
     @CreateDateColumn({ type: "timestamp" })
     created_at: Date;
@@ -37,9 +38,12 @@ export class Empresadatosiniciales {
     
    
  
-    @ManyToOne(() => Empresa, (empresa) => empresa.idempresa)
-    @JoinColumn({ name: 'id_empresa'})
-    empresa: Empresa;
+    
+
+    @ManyToOne(() => Centralizador, (centralizador) => centralizador.idcentralizador)
+    @JoinColumn({ name: 'idcentralizador'})
+    centralizador: Centralizador;
+    
     
 
   

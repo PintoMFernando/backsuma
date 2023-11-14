@@ -18,6 +18,8 @@ export class UpdatePuntoventaactividadDto {
     @IsNumber()  
     @IsOptional()
     idpuntoventa?: number;
+
+    
     
    
  

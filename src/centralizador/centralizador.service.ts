@@ -30,21 +30,21 @@ export class CentralizadorService {
     return await this.centralizadorRepository.find();
   }
 
-  async findAllByIdEmpresa(idempresa){ //esto me puede servir para cuando haga la nueva tabla con los campos que faltan
-    const fecha = new Date();
+  /*async findAllByIdEmpresa(idempresa){ //esto me puede servir para cuando haga la nueva tabla con los campos que faltan
+    const fecha = new Date();                  // por lo visto jala desde aqui 
     const anioactual = fecha.getFullYear();
     
     return await this.centralizadorRepository.find({
       where:{
         'empresa':{idempresa:idempresa },
-        'anio': anioactual
+        'anio': 2022
 
       },
       
       relations:['empresa']
     });
   }
-
+*/
   /*async busquedatablacentralizador(idempresa,anio): Promise<boolean>{ //esto me puede servir para cuando haga la nueva tabla con los campos que faltan
     const datoExistente = await this.centralizadorRepository.findOne({
       where: {

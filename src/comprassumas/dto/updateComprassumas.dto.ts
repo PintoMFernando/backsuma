@@ -11,38 +11,47 @@ export class UpdateComprassumasDto {
   
   @IsNumber()
   @IsOptional()
-  tipo?:number;
-  
-  @IsNumber()
-  @IsOptional()
-  total?:number;
-  
-  @IsNumber()
-  @IsOptional()
-  descuento?:number;
+    tipo?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    total100?:number;
 
-  @IsNumber()
+    @IsNumber()
+    @IsOptional()
+    totaldescuento100?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    totalcompra100?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    totalgasolina?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    totalgasolinadesceunto?:number;
+    
+    @IsNumber()
+    @IsOptional()
+    totalice?:number;
+    
+    @IsNumber()
+    @IsOptional()    
+    totalicecredito?:number;
+
+    @IsNumber()
+    @IsOptional()    
+    totaldescuentoicecredito?:number;
+    
+    @IsNumber()
+    @IsOptional()    
+    totaltodoicecredito?:number;
+
+  @IsString()
   @IsOptional()
-  totalice?:number;
-  
-  @IsNumber()
-  @IsOptional()    
-  totalicecredito?:number;
-
-  @IsNumber()
-  @IsOptional()    
-  totaldescuento?:number;
-  
-  @IsNumber()
-  @IsOptional()    
-  totalcompras?:number;
-
- 
-  
-
-  @IsNumber()
-  @IsOptional()
-  idpuntoventa?:number;
+  idcentralizadormes?:string;
  
  
 }

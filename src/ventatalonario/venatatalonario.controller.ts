@@ -13,9 +13,9 @@ export class VenatatalonarioController {
     constructor(private readonly ventatalonarioService: VenatatalonarioService){}
 
 
-    @Get('/:idventatalonario')
-    findAllByIdventatalonario(@Param('idventatalonario') idventatalonario: number) {
-       return   this.ventatalonarioService.findAllByIdventatalonario(idventatalonario);
+    @Get('/:idcentralizadormes')   //traeremos todos los talonarios con el idcetnralizadormes
+    findAllByIdventatalonario(@Param('idcentralizadormes') idcentralizadormes: string) {
+       return   this.ventatalonarioService.findAllByIdventatalonario(idcentralizadormes );
     }
  
     @Post()

@@ -1,6 +1,6 @@
 
 import { Centralizador } from "src/centralizador/entities/centralizador.entity";
-import { Centralizadormes } from "src/centralizadormes/centralizadormes/entities/centralizadormes.entity";
+import { Centralizadormes } from "src/centralizadormes/entities/centralizadormes.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne , UpdateDateColumn} from "typeorm";
 
 
