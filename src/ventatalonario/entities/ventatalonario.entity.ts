@@ -1,9 +1,11 @@
 
 
 
+import { Archivoelectronicotalonario } from "src/archivostalonarioelectronico/entites/archivotalonarioelectronico.entity";
 import { Centralizadormes } from "src/centralizadormes/entities/centralizadormes.entity";
 import { Mespuntoventasuma } from "src/mespuntoventasuma/entities/mespuntoventasuma.entity";
 import { Puntoventaactividad } from "src/puntoventaactividad/entities/puntoventaactividad.entity";
+import { Sumatalonario } from "src/sumatalonario/entities/sumatalonario.entity";
 
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne , OneToMany, UpdateDateColumn} from "typeorm";
 
@@ -67,15 +69,22 @@ export class Ventatalonario {
 
 
 
-    @ManyToOne(() => Centralizadormes, (centralizadormes) => centralizadormes.ventatalonarios)
+    @ManyToOne(() => Centralizadormes, (centralizadormes) => centralizadormes.ventatalonario)
     @JoinColumn({ name: 'idcentralizadormes' }) 
-    centralizadormess: Centralizadormes;
-
+    centralizadormes: Centralizadormes;    //cambiare de centralizadormess a centralizadormes
     
     
     @ManyToOne( () => Puntoventaactividad, (puntoventaactividad) => puntoventaactividad.ventatalonarios)
     @JoinColumn({ name: 'idpuntoventaactividad' }) 
     puntoventaactividad: Puntoventaactividad[];
+
+    @OneToMany(() => Sumatalonario, sumatalonario => sumatalonario.ventatalonario,{cascade:true ,onDelete: 'CASCADE' })
+    sumatalonarios: Sumatalonario[];
+
+
+    @OneToMany(() => Archivoelectronicotalonario, sumatalonarioelectronico => sumatalonarioelectronico.ventatalonario,{cascade:true})
+    sumatalonarioelectronicos: Archivoelectronicotalonario[];
+
 
 
 }

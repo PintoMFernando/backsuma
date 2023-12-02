@@ -11,6 +11,9 @@ export class CreateOtrossumasDto {
     
     @IsString()
     observaciones:string;
+
+    @IsString()
+    nombrecobro:string;
     
     @IsNumber()
     montootros:number;

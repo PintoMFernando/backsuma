@@ -51,7 +51,6 @@ export class PuntoventaactividadService {
         'actividadess.idactividades as idactividades',
         'actividadess.nombre as nombreactividades',
         
-    
         ])
         
     .getRawMany();

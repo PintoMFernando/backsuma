@@ -37,10 +37,16 @@ export class OtrossumasController {
  
       @Delete('/:idotrossumas')
       delete(@Param('idotrossumas') idotrossumas: string){
-         console.log("aqui esta",idotrossumas);
+         console.log("aqui esta mi idotros sumaaaws",idotrossumas);
          return this.otrossumasService.remove(idotrossumas);
       }  
 
+
+
+      @Post('buscarborrarcrear/:idcentralizadormes')
+      findAllsearchgetupdatedelete(@Param('idcentralizadormes') idcentralizadormes: string,@Body() otrossusmasDto: CreateOtrossumasDto[]) {
+         return   this.otrossumasService.findAllsearchgetdelete(idcentralizadormes,otrossusmasDto);
+      }
   
    
 

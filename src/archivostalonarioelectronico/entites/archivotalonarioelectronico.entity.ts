@@ -14,8 +14,11 @@ export class Archivoelectronicotalonario {
      
    
       
-    @Column({ type: 'varchar', length: 300, nullable: true })
-    archivo:string | null;
+   
+
+    @Column({ nullable: true })
+     filename?:string ;
+  
 
     @Column({ nullable: true })
     observacion:string | null;
@@ -36,7 +39,7 @@ export class Archivoelectronicotalonario {
     deletedAtobs:Date;
    
     
-    @ManyToOne(() => Ventatalonario)
+    @ManyToOne(() => Ventatalonario, ventatalonario => ventatalonario.sumatalonarioelectronicos,{onDelete: 'CASCADE'})
     @JoinColumn({ name: 'idventatalonario' }) 
     ventatalonario: Ventatalonario;
 

@@ -6,10 +6,12 @@ import {  IsDate, IsNumber, IsString, IsUUID } from 'class-validator';
 export class CreateArchivoTalonarioelectronicoDto {
   
   @IsString()
-  idarchivotalonarioelectronico: string;
+  idarchivotalonarioelectronico?: string;
    
+  
+  
   @IsString()
-  archivo?:string ;
+  filename?:string ;
   
   @IsString()
   observacion?:string;

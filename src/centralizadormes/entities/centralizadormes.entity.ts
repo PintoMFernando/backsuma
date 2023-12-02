@@ -20,31 +20,34 @@ export class Centralizadormes {
     @Column()
     fecha:Date;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true,default:0, })
     it:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true})
     iva:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true,default:0, })
     saldoiva:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true,default:0, })
     saldoiue:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true,})
     totalventas:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true})
     totalcompras:number;
     
     @Column()
     estado:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true})
     total:number;
+
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true})
+    totaltodo:number;
     
-    @Column()
+    @Column('decimal', { precision: 10, scale: 2 ,nullable:true})
     comision:number;
     
     @Column()
@@ -70,8 +73,14 @@ export class Centralizadormes {
     @Column()    
     ivaimpuestos:number;
 
-    @Column({default:0, type: 'numeric', precision: 18, scale: 3})    
+    @Column({default:0, type: 'numeric', precision: 18, scale: 2})    
     otros:number;
+
+    @Column({default:0, type: 'numeric', precision: 18, scale: 2})    
+    bruto:number;
+   
+    @Column({default:0, type: 'numeric', precision: 18, scale: 2})    
+    excento:number;
 
     @CreateDateColumn({ type: "timestamp" })
     created_at: Date;
@@ -84,9 +93,13 @@ export class Centralizadormes {
     idcentralizador:string;
    
     
-    @ManyToOne(() => Centralizador)
+    @ManyToOne(() => Centralizador, (centralizador) => centralizador.centralizadormes)
     @JoinColumn({ name: 'idcentralizador' }) 
     centralizador: Centralizador;
+
+   
+
+
     
     @OneToOne(() => Comprassumas, comprassumas => comprassumas.centralizadormes, { cascade: true, eager: true })
     comprassumas: Comprassumas;
@@ -97,9 +110,11 @@ export class Centralizadormes {
 
 
     
-    @ManyToOne(() => Ventatalonario, (ventatalonario) => ventatalonario.puntoventaactividad)
-   
-    ventatalonarios: Ventatalonario;
+   // @ManyToOne(() => Ventatalonario, (ventatalonario) => ventatalonario.puntoventaactividad) ///cambie esto
+   // ventatalonarios: Ventatalonario;
+
+   @ManyToOne(() => Ventatalonario, (ventatalonario) => ventatalonario.centralizadormes)
+    ventatalonario: Ventatalonario;
 
    
    // @OneToMany(() => Mespuntoventasuma, (mespuntoventasuma) => mespuntoventasuma.centralizadormess)

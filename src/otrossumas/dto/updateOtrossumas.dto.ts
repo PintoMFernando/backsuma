@@ -12,6 +12,11 @@ export class UpdateOtrossumasDto {
   @IsString()
   @IsOptional()
   observaciones?:string;
+
+  @IsString()
+  @IsOptional()
+  nombrecobro:string;
+  
   
   @IsNumber()
   @IsOptional()

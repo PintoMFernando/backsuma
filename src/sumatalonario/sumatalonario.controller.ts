@@ -34,6 +34,9 @@ export class SumatalonarioController {
          console.log("aqui esta",idobservaciones);
          return this.sumatalonarioService.remove(idobservaciones);
       }  
+
+
+      
  
       
   

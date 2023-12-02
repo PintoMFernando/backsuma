@@ -17,6 +17,19 @@ export class VenatatalonarioController {
     findAllByIdventatalonario(@Param('idcentralizadormes') idcentralizadormes: string) {
        return   this.ventatalonarioService.findAllByIdventatalonario(idcentralizadormes );
     }
+
+    @Get('/ventames/:idcentralizadormes/:numtalonario')   //traeremos todos los talonarios con el idcetnralizadormes
+    findAll(@Param('idcentralizadormes') idcentralizadormes: string,@Param('numtalonario') numtalonario: number) {
+       return   this.ventatalonarioService.findAll(idcentralizadormes ,numtalonario);
+    }
+
+    @Get('/busquedaventtalonario/:idventtalonario')   //traeremos todos los talonarios con el idcetnralizadormes
+    findAllbusqueda(@Param('idventtalonario') idventtalonario: string) {
+       return   this.ventatalonarioService.findAllfindAllbusqueda(idventtalonario );
+    }
+ 
+ 
+
  
     @Post()
      create( @Body() ventatalonarioDto: CreateVentaTalonarioDto[]) {
@@ -29,14 +42,25 @@ export class VenatatalonarioController {
      update(@Param('idventatalonario') idventatalonario: string, @Body() updateobservacionesDto: UpdateVentaTalonarioDto) {
           return this.ventatalonarioService.update(idventatalonario, updateobservacionesDto);
       }
- 
- 
-      @Delete('/:idobservaciones')
-      remove(@Param('idobservaciones') idobservaciones: string){
-         console.log("aqui esta",idobservaciones);
-         return this.ventatalonarioService.remove(idobservaciones);
+      
+   /*   @Delete('/:idpuntoactividad/:idcentralizadormes/:tipo')
+      remove(@Param('idpuntoactividad') idpuntoactividad: string,@Param('idcentralizadormes') idcentralizadormes: string,@Param('tipo') tipo: number){
+        
+         return this.ventatalonarioService.remove(idpuntoactividad,idcentralizadormes,tipo);
       }  
- 
+ */
+
+      @Delete('/:idventatalonario/')
+      remove(@Param('idventatalonario') idventatalonario: string ){
+        
+         return this.ventatalonarioService.remove(idventatalonario);
+      }
+
+
+      @Post('buscarborraractualizar/')
+      findAllsearchgetupdatedelete(@Body() comprasssumasdetalleDto: CreateVentaTalonarioDto[]) {
+         return   this.ventatalonarioService.findAllsearchgetupdatedelete(comprasssumasdetalleDto);
+      }
       
    
  

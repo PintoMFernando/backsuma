@@ -97,13 +97,23 @@ export class UpdateCentralizadorMesDto {
     ivaimpuestos?:number;
 
     @IsNumber()
-     @IsOptional
-    ()    
+     @IsOptional()    
     otros?:number;
 
-    @IsString()
+    @IsNumber()  
+    @IsOptional()     
+    bruto?:number;
+   
+    @IsNumber()    
+    @IsOptional()   
+    excento?:number;
 
-@IsOptional()
+    @IsNumber()   
+    @IsOptional()
+    totaltodo?:number;
+
+    @IsString()
+    @IsOptional()
     idcentralizador?:string;
  
 }

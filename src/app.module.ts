@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { EmpresaModule } from './caso-uso/empresa/empresa.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatosempresaModule } from './centralizador/centralizador.module';
+import { CentralizadorModule } from './centralizador/centralizador.module';
 import { join } from 'path';
 import { CentralizadormesModule } from './centralizadormes/centralizadormes.module';
 import { CobroModule } from './cobro/cobro.module';
@@ -25,11 +25,10 @@ import { MespuntoventasumaModule } from './mespuntoventasuma/mespuntoventasuma.m
 import { ActividadesModule } from './actividades/actividades.module';
 import { PuntoventaactividadModule } from './puntoventaactividad/puntoventaactividad.module';
 
-
 @Module({
   imports: [EmpresaModule,
-            DatosempresaModule,
             CentralizadormesModule,
+            CentralizadorModule,
             CobroModule,
             ObservacionesModule,
             UserModule,

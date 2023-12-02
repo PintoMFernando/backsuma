@@ -54,9 +54,80 @@ export class ComprassumasdetalleService {
  
 
  async remove(idcomprasuma:string){
+ 
     return await this.comprassumasdetalleRepository.delete({idcomprasuma:idcomprasuma}); //elimina todos los datos, cambiamos softdelete por delete
   }
 
 
 
+  async findAllsearchgetupdatedelete(idcomprasuma:string,createcomprassumasdetalleDto: CreateComprassumasdetalleDto[]){
+
+    //console.log("mis datos del fronted",createcomprassumasdetalleDto)
+ // return idcomprasuma
+  const resultadoidcomprasuma = await this.comprassumasdetalleRepository
+  .createQueryBuilder('comprassumasdetalle')
+  .innerJoin('comprassumas', 'cs', 'cs.idcomprasuma = comprassumasdetalle.idcomprasuma')
+  .where('comprassumasdetalle.idcomprasuma = :idcomprasuma ', {
+    idcomprasuma: idcomprasuma,
+       })
+  .select('cs.idcomprasuma')
+  //.addSelect('')
+  .getRawOne();
+ //return resultadoComprasBruto
+ 
+if (resultadoidcomprasuma) {//ha datos 
+  console.log("entra ami borrar")
+  await this.remove(idcomprasuma);
+  await this.create(createcomprassumasdetalleDto);
+  await this.calculospost(idcomprasuma);
+ 
+  }
+  else {  
+    console.log("no entra ami borrar")  
+    await this.create(createcomprassumasdetalleDto);
+    await this.calculospost(idcomprasuma);
+  }
+
+
+
+  }
+
+  async calculospost(idcomprasuma:string) {
+    console.log("entra yes",idcomprasuma)
+    const calculopostcomprassumas = await this.comprassumasdetalleRepository
+    .createQueryBuilder('comprassumasdetalle')
+    .innerJoin('comprassumas', 'cs', 'cs.idcomprasuma = comprassumasdetalle.idcomprasuma')
+    .where('comprassumasdetalle.idcomprasuma = :idcomprasuma ', {
+      idcomprasuma: idcomprasuma,
+         })
+    .select('SUM(comprassumasdetalle.ice100) as totalice')
+    .addSelect('SUM(comprassumasdetalle.monto) as total100')
+    .addSelect('SUM(comprassumasdetalle.montogasolina) as totalgasolina')
+    .addSelect('SUM(comprassumasdetalle.icecreditofis) as totalicecreditofiscal')
+    .addSelect('SUM(comprassumasdetalle.descuentoice100) as totaldescuento')
+    .getRawOne();
+   
+  
+    const totalice = parseFloat(calculopostcomprassumas.totalice);
+    const total100 = parseFloat(calculopostcomprassumas.total100);
+    const totalgasolina = parseFloat(calculopostcomprassumas.totalgasolina);
+    const totalicecredito = parseFloat(calculopostcomprassumas.totalicecreditofiscal);
+    const totaldescuento = parseFloat(calculopostcomprassumas.totaldescuento);
+   
+    const resultComprassumas =  await this.comprassumasdetalleRepository
+   
+    .createQueryBuilder()
+    .update(Comprassumas)
+    .set({ totalice: totalice, 
+          total100:total100,
+          tipo:1,
+          totalgasolina:totalgasolina,
+          totalicecredito:totalicecredito,
+          totaldescuento100:totaldescuento,
+        })
+    .where('idcomprasuma = :id', { id: idcomprasuma })
+    .execute();
+    console.log("entra yes",resultComprassumas)
+    return resultComprassumas;
+  }
 }

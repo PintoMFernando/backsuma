@@ -22,6 +22,7 @@ export class CentralizadorService {
 
    // }
     
+   console.log(createdatoEmpresaDto);
     return await this.centralizadorRepository.save(createdatoEmpresaDto);
   }
   

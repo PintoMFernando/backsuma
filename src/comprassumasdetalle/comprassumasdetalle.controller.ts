@@ -18,6 +18,11 @@ export class ComprassumasdetalleController {
     findAll(@Param('idcomprassumas') idcomprassumas: string) {
        return   this.comprassumasdetalleService.findAll(idcomprassumas);
     }
+
+    @Post('buscarborraractualizar/:idcomprassumas')
+    findAllsearchgetupdatedelete(@Param('idcomprassumas') idcomprassumas: string,@Body() comprasssumasdetalleDto: CreateComprassumasdetalleDto[]) {
+       return   this.comprassumasdetalleService.findAllsearchgetupdatedelete(idcomprassumas,comprasssumasdetalleDto);
+    }
  
     @Post()
      create( @Body() comprasssumasdetalleDto: CreateComprassumasdetalleDto[]) {

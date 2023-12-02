@@ -15,6 +15,7 @@ export class SumatalonarioService {
       ) {}
     
       async create(createsumaatalonarioDto: CreateSumaTalonarioDto[]){
+        console.log("entra para crear")
         return await this.sumatalonarioRepository.save(createsumaatalonarioDto);
       }
       

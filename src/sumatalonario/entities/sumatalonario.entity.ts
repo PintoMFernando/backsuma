@@ -35,7 +35,11 @@ export class Sumatalonario {
     deletedAtobs:Date;
    
     
-    @ManyToOne(() => Ventatalonario)
+    //@ManyToOne(() => Ventatalonario,{cascade:true })
+    //@JoinColumn({ name: 'idventatalonario' }) 
+    //ventatalonario: Ventatalonario;
+
+    @ManyToOne(() => Ventatalonario, ventatalonario => ventatalonario.sumatalonarios,{onDelete: 'CASCADE'})
     @JoinColumn({ name: 'idventatalonario' }) 
     ventatalonario: Ventatalonario;
 

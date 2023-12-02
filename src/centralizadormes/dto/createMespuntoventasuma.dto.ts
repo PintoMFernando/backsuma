@@ -64,6 +64,15 @@ export class CreateCentralizadorMesDto {
     @IsNumber()    
     otros:number;
 
+    @IsNumber()    
+    bruto:number;
+   
+    @IsNumber()    
+    excento:number;
+    
+    @IsNumber()   
+    totaltodo:number;
+
     @IsString()
     idcentralizador:string;
 

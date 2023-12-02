@@ -13,6 +13,9 @@ export class Otrossumas {
     idotrossumas: string;
     
     @Column({nullable:true, type:'text'})
+    nombrecobro:string;
+    
+    @Column({nullable:true, type:'text'})
     observaciones:string;
     
     @Column({default:0, type: 'numeric', precision: 18, scale: 3})

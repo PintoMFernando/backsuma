@@ -70,7 +70,7 @@ export class Comprassumas {
     
 
    
-    @OneToMany(() => Comprassumasdetalle, (comprassumasdetalle) => comprassumasdetalle.comprassumas,{ cascade:  true})
+    @OneToMany(() => Comprassumasdetalle, (comprassumasdetalle) => comprassumasdetalle.comprassumas,{cascade:true ,onDelete: 'CASCADE'} )
     @JoinColumn({ name: 'idcentralizadormes' }) 
     comprassumasdetalle: Comprassumasdetalle[];
     

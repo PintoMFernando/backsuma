@@ -9,6 +9,10 @@ export class UpdateArchivoTalonarioelectronicoDto {
   idarchivotalonarioelectronico?:string;
    
   
+
+  @IsString()
+  @IsOptional()
+  filename?:string ;
   //falta archivo
   @IsString()
   @IsOptional()

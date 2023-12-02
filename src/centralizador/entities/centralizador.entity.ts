@@ -1,10 +1,11 @@
 
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, Unique, UpdateDateColumn} from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Unique, UpdateDateColumn} from "typeorm";
 import { Empresa } from "src/caso-uso/empresa/entities/empresa.entity";
 import { IsNotEmpty } from "class-validator";
+import { Centralizadormes } from "src/centralizadormes/entities/centralizadormes.entity";
 
 @Entity("centralizador")
-@Unique(['anio'])
+
 export class Centralizador {
 
    @Column({primary:true,type:'uuid'})  //va estar autogeneradaaa
@@ -28,6 +29,13 @@ export class Centralizador {
     @ManyToOne(() => Empresa, (empresa) => empresa.idempresa)
     @JoinColumn({ name: 'id_empresa'})
     empresa: Empresa;
+
+
+    
+
+    @OneToMany(() => Centralizadormes, centralizadormes => centralizadormes.centralizador)
+    centralizadormes: Centralizadormes[];
+
 
 
 }

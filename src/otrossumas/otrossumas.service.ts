@@ -54,7 +54,42 @@ export class OtrossumasService {
  
 
  async remove(idcentralizadormes:string){
+  console.log("se elimino con exito c")
     return await this.otrossumasRepository.delete({idcentralizadormes:idcentralizadormes}); //elimina todos los datos, cambiamos softdelete por delete
   }
+
+
+  
+  async findAllsearchgetdelete(idcentralizadormes:string,createotrossumasDto: CreateOtrossumasDto[]){
+
+    
+  const resultadootrosuma = await this.otrossumasRepository
+  .createQueryBuilder('otrossumas')
+  .innerJoin('centralizadormes', 'cm', 'cm.idcentralizadormes = otrossumas.idcentralizadormes')
+  .where('otrossumas.idcentralizadormes = :idcentralizadormes ', {
+    idcentralizadormes: idcentralizadormes,
+       })
+  .select('cm.idcentralizadormes')
+  //.addSelect('')
+  .getRawOne();
+ 
+ 
+if (resultadootrosuma) {//nohay datos sad
+
+  await this.remove(idcentralizadormes);
+  await this.create(createotrossumasDto);
+  
+ 
+  }
+  else {  
+    
+    await this.create(createotrossumasDto);
+    
+  }
+
+
+
+  }
+
 
 }
