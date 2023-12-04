@@ -19,15 +19,14 @@ export class VenatatalonarioService {
         @InjectRepository(Ventatalonario)
         private readonly ventatalonarioRepository: Repository<Ventatalonario>,
         private readonly sumatalonarioService: SumatalonarioService,
-       // @InjectRepository(Sumatalonario)
-       // private readonly sumaventatalonarioRepository: Repository<Sumatalonario>
+      
       ) {}
     
   
       async create(createVentaTalonarioDto: CreateVentaTalonarioDto[]) {
        
      
-        // Llama al repositorio para guardar la entidad en la base de datosfhfghfghsadasdasASDASD
+      
         return await this.ventatalonarioRepository.save(createVentaTalonarioDto);
       }
 
@@ -126,9 +125,7 @@ return resultadoOrdenado
   }
 
 
-  /*async remove(idpuntoventaactividad:string,idcentralizadormes:string,tipo:number){
-    return await this.ventatalonarioRepository.delete({idpuntoventaactividad,idcentralizadormes,tipo});
-  }*/
+ 
    
   async remove(idpuntoventaactividad:string){
     return await this.ventatalonarioRepository.delete(idpuntoventaactividad);
@@ -226,18 +223,7 @@ return resultadoOrdenado
   async insertarsumas(arraysumas:any){
     console.log("es mi array??",arraysumas);
     await this.sumatalonarioService.create(arraysumas)
-    //await this.sumaventatalonarioRepository.save(arraysumas)
-    /*const misdatos= arraysumas
-    .createQueryBuilder('Sumatalonario')
-    .create(Sumatalonario)
-    .set({
-      misdatos:misdatos
-        })
    
-    .execute();
-    console.log("entra yes",misdatos)
-    return misdatos;
-*/
 
   }
   
