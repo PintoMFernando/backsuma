@@ -12,7 +12,7 @@ export class PuntoventaactividadService {
    
     constructor(
         @InjectRepository(Puntoventaactividad)
-        private  puntoventaactividadRepository: Repository<Puntoventaactividad>,
+        public  puntoventaactividadRepository: Repository<Puntoventaactividad>,
         
       ) {}
     

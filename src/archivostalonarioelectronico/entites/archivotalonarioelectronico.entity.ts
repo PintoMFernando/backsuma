@@ -43,4 +43,8 @@ export class Archivoelectronicotalonario {
     @JoinColumn({ name: 'idventatalonario' }) 
     ventatalonario: Ventatalonario;
 
+
+
+
+
 }

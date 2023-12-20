@@ -49,7 +49,7 @@ export class Puntoventaactividad {
 
 
 
-    @ManyToOne(() => Ventatalonario, (ventatalonario) => ventatalonario.puntoventaactividad)
+    @OneToMany(() => Ventatalonario, (ventatalonario) => ventatalonario.puntoventaactividad)
     ventatalonarios: Ventatalonario;
 
 

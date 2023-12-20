@@ -69,11 +69,56 @@ export class CentralizadormesService {
       
       '(SELECT json_agg(json_build_object(\'otrossumas\', json_build_object(\'monto\', os.montootros, \'nombre\', os.nombrecobro))) FROM otrossumas os WHERE os.idcentralizadormes = centralizadormes.idcentralizadormes) AS otrosumas',
       '(SELECT json_agg(json_build_object(\'puntoventa\', json_build_object(\'idpuntoventaactividad\', pva.idpuntoventaactividad, \'nombre\', pv.nombre, \'actividad\', a.nombre, \'montototal\', vt.montototal))) FROM ventatalonario vt LEFT JOIN puntoventaactividad pva ON vt.idpuntoventaactividad = pva.idpuntoventaactividad LEFT JOIN puntoventa pv ON pva.idpuntoventa = pv.idpuntoventa LEFT JOIN actividades a ON pva.idactividades = a.idactividades WHERE vt.idcentralizadormes = centralizadormes.idcentralizadormes) AS puntoventa'
-     ])
+      //'json_agg(json_build_object(\'puntoventa\', json_build_object(\'idpuntoventaactividad\', pva.idpuntoventaactividad, \'nombre\', pv.nombre, \'actividad\', a.nombre, \'montototal\', vt.montototal))) AS puntoventa'
+
+    // 'json_agg(json_build_object(\'puntoventa\', json_build_object(\'idpuntoventaactividad\', pva.idpuntoventaactividad, \'nombre\', pv.nombre, \'actividad\', a.nombre, \'montototal\', SUM(vt.montototal)))) AS puntoventa'
+ 
+   ])
     .getRawMany();
 
-    return resultadoSumatotaltodo
-  
+    //return resultadoSumatotaltodo
+
+    const resultadoFinal = resultadoSumatotaltodo.map(item => {
+      // Verificar si el objeto tiene la propiedad 'puntoventa'
+      if (item.puntoventa && Array.isArray(item.puntoventa)) {
+        // Crear un objeto para almacenar la suma de 'montototal' por 'idpuntoventaactividad'
+        const montototalPorActividad = {};
+    
+        // Recorrer la propiedad 'puntoventa'
+        item.puntoventa.forEach(punto => {
+          const { idpuntoventaactividad, montototal } = punto.puntoventa;
+    
+          // Verificar si el objeto ya tiene esa 'idpuntoventaactividad'
+          if (!montototalPorActividad[idpuntoventaactividad]) {
+            montototalPorActividad[idpuntoventaactividad] = {
+              idpuntoventaactividad,
+              nombre: punto.puntoventa.nombre, // Asumiendo que 'nombre' es una propiedad válida
+              actividad: punto.puntoventa.actividad, // Asumiendo que 'actividad' es una propiedad válida
+              montototal: 0,
+            };
+          }
+    
+          // Sumar 'montototal' por 'idpuntoventaactividad'
+          montototalPorActividad[idpuntoventaactividad].montototal += montototal;
+        });
+    
+        // Extraer los valores del objeto a un array
+        const puntoventaSumado = Object.values(montototalPorActividad);
+    
+        // Retornar el objeto con la propiedad 'puntoventa' modificada
+        return {
+          ...item,
+          puntoventa: puntoventaSumado,
+        };
+      }
+    
+      // Si no tiene la propiedad 'puntoventa', retornar el objeto sin cambios
+      return item;
+    });
+    
+    
+  console.log(resultadoFinal);
+  return resultadoFinal
 
   }
 

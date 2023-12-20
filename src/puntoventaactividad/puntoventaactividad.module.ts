@@ -10,6 +10,7 @@ import { Puntoventaactividad } from './entities/puntoventaactividad.entity';
 @Module({
   imports:[TypeOrmModule.forFeature([Ventatalonario, Actividades, Puntoventa, Puntoventaactividad])],
   controllers: [PuntoventaactividadController],
-  providers: [PuntoventaactividadService]
+  providers: [PuntoventaactividadService],
+  exports:[PuntoventaactividadService]
 })
 export class PuntoventaactividadModule {}

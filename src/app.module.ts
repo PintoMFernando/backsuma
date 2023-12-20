@@ -43,6 +43,8 @@ import { PuntoventaactividadModule } from './puntoventaactividad/puntoventaactiv
             MespuntoventasumaModule,
             ActividadesModule,
             PuntoventaactividadModule,
+           // VenatatalonarioModule,
+           
 
          
     
@@ -56,6 +58,7 @@ import { PuntoventaactividadModule } from './puntoventaactividad/puntoventaactiv
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
         autoLoadEntities:true,
         synchronize: true,
+        //logging:true,
       }),
          
      

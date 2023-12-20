@@ -7,6 +7,10 @@ import { UpdateVentaTalonarioDto } from './dto/updateVentaTalonario.dto';
 import { Sumatalonario } from 'src/sumatalonario/entities/sumatalonario.entity';
 import { SumatalonarioService } from 'src/sumatalonario/sumatalonario.service';
 import { v4 as uuidv4 } from 'uuid';
+import { Puntoventa } from 'src/puntoventa/entities/puntoventa.entity';
+import { PuntoventaService } from 'src/puntoventa/puntoventa.service';
+import { Puntoventaactividad } from 'src/puntoventaactividad/entities/puntoventaactividad.entity';
+import { PuntoventaactividadService } from 'src/puntoventaactividad/puntoventaactividad.service';
 
 @Injectable()
 export class VenatatalonarioService {
@@ -18,6 +22,11 @@ export class VenatatalonarioService {
     constructor(
         @InjectRepository(Ventatalonario)
         private readonly ventatalonarioRepository: Repository<Ventatalonario>,
+        //@InjectRepository(Puntoventaactividad)
+        private readonly puntoventaactividadRepository: PuntoventaactividadService,
+        //@InjectRepository(Puntoventa)
+       // private readonly puntoventaRepository:PuntoventaService,
+        //@InjectRepository(SumatalonarioService)
         private readonly sumatalonarioService: SumatalonarioService,
       
       ) {}
@@ -46,8 +55,50 @@ export class VenatatalonarioService {
     }
   }
 
-  private async getventatalonario(idcentralizadormes: string,numtalonario: number) { ///falta traerventas
+  private async getventatalonario(idcentralizadormes: string,tipo: number) { ///falta traerventas
   
+    /*return await this.puntoventaactividadRepository.find(
+      {
+        relations:[
+          'puntoventaactividads',
+          'puntoventaactividads.ventatalonarios',
+          'puntoventaactividads.ventatalonarios.sumatalonarios',
+        ],
+        where:{
+          puntoventaactividads:{
+            ventatalonarios:{
+              idcentralizadormes: idcentralizadormes,
+              tipo:tipo,  
+              }
+            },
+          
+        }
+      }
+    )*/
+
+
+    return await this.puntoventaactividadRepository.puntoventaactividadRepository.find(
+      {
+        relations:{
+          //'puntoventaactividad.puntoventa',
+         // puntoventaactividad:true,
+           //sumatalonarios:true ,
+          //puntoventa:true,
+           ventatalonarios:{
+            sumatalonarios:true,
+           },
+           
+          }  ,
+        where:{
+          ventatalonarios:{
+         idcentralizadormes: idcentralizadormes,
+          
+          tipo:tipo
+          }
+        }
+      }
+    )
+
     const mesventas = await this.ventatalonarioRepository
     .createQueryBuilder('ventatalonario')
     .innerJoinAndSelect('ventatalonario.sumatalonarios', 'sumatalonarios')
@@ -56,7 +107,7 @@ export class VenatatalonarioService {
       'JSON_AGG(JSON_BUILD_OBJECT(\'idventatalonario\', sumatalonarios.idsumatalonario, \'numfactura\', sumatalonarios.numfactura, \'monto\', sumatalonarios.monto, \'estado\', sumatalonarios.estado, \'idventatalonario\', sumatalonarios.idventatalonario,\'idsumatalonario\', sumatalonarios.idsumatalonario)) as sumaventatalonario'
      ])
     .where('ventatalonario.idcentralizadormes = :idcentralizadormes', { idcentralizadormes })
-    .andWhere('ventatalonario.numtalonario = :numtalonario', {numtalonario})
+    .andWhere('ventatalonario.tipo = :tipo', {tipo})
     .groupBy('ventatalonario.idventatalonario, ventatalonario.idpuntoventaactividad, ventatalonario.idcentralizadormes')
     .orderBy({
       'ventatalonario.numtalonario': 'ASC',
@@ -133,49 +184,131 @@ return resultadoOrdenado
 
 
 
-  async findAllsearchgetupdatedelete(createcomprassumasdetalleDto: CreateVentaTalonarioDto[]){
-   
-    for(let i=0 ; i<createcomprassumasdetalleDto.length; i++){
-        const idventatalonario=createcomprassumasdetalleDto[i][0].idventatalonario
-        await this.buscartalonario(String(idventatalonario),createcomprassumasdetalleDto)
-        console.log( "holos es mi dato que me llega ",idventatalonario)
-
+  async findAllsearchgetupdatedelete(createcomprassumasdetalleDto: any){
+   console.log("HOLOOOOOOS",createcomprassumasdetalleDto)   //si me llega un array de jason
+    //return createcomprassumasdetalleDto
+    let idCentralizadormesEncontrado: string | null = null;
+    //let idPuntoVentaActividadEncontrado: string | null = null;
+    
+    
+    if(idCentralizadormesEncontrado ){
+      idCentralizadormesEncontrado = createcomprassumasdetalleDto[0]?.idcentralizadormes;
+      await this.buscartalonario(idCentralizadormesEncontrado,createcomprassumasdetalleDto)
     }
-
-
+    else{
+      idCentralizadormesEncontrado = "67e62927-c98d-408e-8e4c-469918f56c9d";
+      await this.buscartalonario(idCentralizadormesEncontrado,createcomprassumasdetalleDto)
+      //await this.creartalonariosventas(createcomprassumasdetalleDto)
+    }
+    
+  
+   
+  
   }
-  async buscartalonario(idventatalonario:string, misdatos:any){
+  async buscartalonario(idcentralizadormes:string ,misdatos:any){
 
     const busquedaventatalonario = await this.ventatalonarioRepository
     .createQueryBuilder('ventatalonario')
     .innerJoin('sumatalonario', 'st', 'st.idventatalonario = ventatalonario.idventatalonario')
-    .where('ventatalonario.idventatalonario = :idventatalonario ', {
-      idventatalonario: idventatalonario,
-         })
+    .where('ventatalonario.idcentralizadormes = :idcentralizadormes', { idcentralizadormes })
     .select('st.idventatalonario')
     //.addSelect('')
-    .getRawOne();
-      console.log("son muchos de mis datos", busquedaventatalonario)
+    .groupBy('st.idventatalonario')
+    .getRawMany();
+   
     // return busquedaventatalonario
-    if(busquedaventatalonario){ //hay datos
-       await this.remove(idventatalonario)
-       await this.creartalonariosventas(misdatos,idventatalonario)
-       await this.crearsumastalonarios(misdatos,idventatalonario)
-       //await this.create()
+   
+    if(busquedaventatalonario.length !==0){ //hay datos
+      console.log("emntraaaaaaa",busquedaventatalonario,idcentralizadormes)
+      busquedaventatalonario.forEach(async objeto => {
+        const stIdventatalonario = objeto.st_idventatalonario;
+        await this.remove(stIdventatalonario)
+        await this.creartalonariosventas(misdatos)
+     
+      });
+       
 
     }else{
-      await this.creartalonariosventas(misdatos,idventatalonario)
-      await this.crearsumastalonarios(misdatos,idventatalonario)
+    
+      await this.creartalonariosventas(misdatos)
+     
 
     }
   console.log(busquedaventatalonario)
   return busquedaventatalonario
   }
 
-  async creartalonariosventas(misdatos:any ,idventatalonario:string){
-    const nuevoArray = misdatos.map(subArray => {
+  async creartalonariosventas(misdatos:any ){
+    let jsonventatalonario
+    let arraysumas = []
+    
+    for (const item of misdatos) {
+       jsonventatalonario ={
+        idventatalonario:item.idventatalonario,
+        numtalonario:item.numtalonario,
+        factinicial:item.factinicial,
+        factfinal:item.factfinal,
+        tipo:item.tipo,
+        montototal:item.suma,
+        idpuntoventaactividad:item.idpuntoventaactividad,
+        idcentralizadormes:item.idcentralizadormes,
+      }
+      await this.create(jsonventatalonario)
+      for (const suma of item.sumatalonarios) {
+       
+          if(suma.idventatalonario){
+               
+            switch (suma.monto) {
+              case 'A':
+              case 'a':
+                
+                suma.estado = 1;
+                suma.monto=0;
+                break;
+              case 'E':
+              case 'e':
+                
+                suma.estado = 2;
+                suma.monto=0;
+                break;
+              case 'I':
+              case 'i':
+                
+                suma.estado = 3;
+                suma.monto=0;
+                break;
+              default:
+                suma.estado=0;
+                break;
+            }
+            const jsonsuma ={
+              idsumatalonario:suma.idsumatalonario,
+              numfactura:suma.numfactura,
+              monto:suma.monto,
+              idventatalonario:suma.idventatalonario,
+              estado:suma.estado,
+            }
+           arraysumas.push(jsonsuma)
+          }
+
+        }
+        await this.insertarsumas(arraysumas)
+     
+         console.log("gato pato2",item)
+         console.log("gato pato3",arraysumas)
+    }
+
+
+ 
+ 
+ 
+      
+      
+  
+    
+   /* const nuevoArray = misdatos.map(subArray => {
       // Filtrar el subArray basado en el ID específico
-      const objetoFiltrado = subArray.find(objeto => objeto.idventatalonario === idventatalonario);
+      const objetoFiltrado = misdatos.find(objeto => objeto.idventatalonario === idventatalonario);
     
       // Crear un nuevo objeto solo con los campos deseados
       if (objetoFiltrado) {
@@ -194,34 +327,18 @@ return resultadoOrdenado
     
       return null; // O puedes manejar el caso cuando no se encuentra el ID
     });
-    
+    */
     // Filtra el array para eliminar los elementos nulos (cuando no se encuentra el ID)
-    const resultadoFinal = nuevoArray.filter(objeto => objeto !== null);
-    await this.create(resultadoFinal)
-    console.log(resultadoFinal);
+   // const resultadoFinal = nuevoArray.filter(objeto => objeto !== null);
+   // await this.create(resultadoFinal)
+    //console.log(resultadoFinal);
   }
 
 
-  async crearsumastalonarios(misdatos:any ,idventatalonario:string){
-
-    const arraySumaventatalonario = misdatos
-    .flat() // Aplanar la matriz
-    .find(objeto => objeto.idventatalonario === idventatalonario)?.sumaventatalonario;
-    
-    this.insertarsumas(arraySumaventatalonario);
-   
-
-    
-   // 
-    console.log(arraySumaventatalonario);
-
-    
-
-
-  }
 
   async insertarsumas(arraysumas:any){
-    console.log("es mi array??",arraysumas);
+
+    
     await this.sumatalonarioService.create(arraysumas)
    
 

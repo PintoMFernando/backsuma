@@ -22,6 +22,12 @@ export class PuntoventaController {
     }
 
 
+    
+    @Get('/todoventa/:idempresa/:idcentralizadormes')
+    findTodoVenta(@Param('idempresa') idempresa: number,@Param('idcentralizadormes') idcentralizadormes: string) {
+    return this.puntoventaService.findTodoVenta(idempresa,idcentralizadormes );
+    }
+
 
 
 

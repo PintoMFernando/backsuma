@@ -8,7 +8,7 @@ import { Puntoventa } from './entities/puntoventa.entity';
   imports: [TypeOrmModule.forFeature([Puntoventa])],
   providers: [PuntoventaService],
   controllers: [PuntoventaController],
-  
+  exports:[PuntoventaService]
 
 })
 export class PuntoventaModule {}
